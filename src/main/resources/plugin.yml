@@ -1,4 +1,4 @@
-name: CurseByteCore
+name: CursebyteCore
 version: 1.0
 main: com.cursebyte.plugin.CursebyteCore
 api-version: 1.20
