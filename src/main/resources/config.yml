@@ -1,0 +1,7 @@
+immigration:
+  spawn-location: null
+  
+  npc:
+    id: -1
+    name: "Petugas Imigrasi"
+    location: null
