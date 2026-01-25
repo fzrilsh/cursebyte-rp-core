@@ -43,6 +43,7 @@ public class MainMenu implements Menu {
             inv.setItem(i, blackGlass);
 
         inv.setItem(20, walletItem());
+        inv.setItem(22, reportItem());
         inv.setItem(40, closeItem());
 
         return inv;
@@ -50,11 +51,15 @@ public class MainMenu implements Menu {
 
     @Override
     public void onClick(Player p, int slot, MenuContext ctx) {
-        if(slot == 20){
+        if (slot == 20) {
             MenuRouter.open(p, "wallet");
         }
 
-        if(slot == 40){
+        if (slot == 22) {
+            MenuRouter.open(p, "report");
+        }
+
+        if (slot == 40) {
             p.closeInventory();
             MenuSession.clear(p);
         }
@@ -70,8 +75,42 @@ public class MainMenu implements Menu {
         return item;
     }
 
+    private static ItemStack reportItem() {
+        ItemStack item = SkullUtils.getCustomHead(
+                "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjZlNTIyZDkxODI1MjE0OWU2ZWRlMmVkZjNmZTBmMmMyYzU4ZmVlNmFjMTFjYjg4YzYxNzIwNzIxOGFlNDU5NSJ9fX0=");
+        ItemMeta meta = item.getItemMeta();
+
+        meta.displayName(
+                Component.text("🚨 Pusat Laporan")
+                        .color(TextColor.color(255, 85, 85))
+                        .decorate(TextDecoration.BOLD));
+
+        meta.lore(List.of(
+                Component.text("Laporkan pelanggaran atau bug")
+                        .color(TextColor.color(180, 180, 180))
+                        .decorate(TextDecoration.ITALIC),
+
+                Component.text(""),
+
+                Component.text("• Laporkan Player").color(TextColor.color(120, 255, 120)),
+                Component.text("• Panggil Admin").color(TextColor.color(120, 255, 120)),
+
+                Component.text(""),
+
+                Component.text("Klik untuk membuka")
+                        .color(TextColor.color(255, 255, 255))
+                        .decorate(TextDecoration.BOLD)));
+
+        meta.addEnchant(Enchantment.LUCK_OF_THE_SEA, 1, true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+
+        item.setItemMeta(meta);
+        return item;
+    }
+
     private static ItemStack walletItem() {
-        ItemStack item = SkullUtils.getCustomHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjA5Mjk5YTExN2JlZTg4ZDMyNjJmNmFiOTgyMTFmYmEzNDRlY2FlMzliNDdlYzg0ODEyOTcwNmRlZGM4MWU0ZiJ9fX0=");
+        ItemStack item = SkullUtils.getCustomHead(
+                "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjA5Mjk5YTExN2JlZTg4ZDMyNjJmNmFiOTgyMTFmYmEzNDRlY2FlMzliNDdlYzg0ODEyOTcwNmRlZGM4MWU0ZiJ9fX0=");
         ItemMeta meta = item.getItemMeta();
 
         meta.displayName(
