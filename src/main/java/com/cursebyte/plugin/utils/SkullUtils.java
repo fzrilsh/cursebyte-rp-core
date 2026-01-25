@@ -24,4 +24,15 @@ public class SkullUtils {
         
         return head;
     }
+
+    public static ItemStack getPlayerHead(UUID uuid) {
+        ItemStack head = new ItemStack(Material.PLAYER_HEAD);
+        SkullMeta meta = (SkullMeta) head.getItemMeta();
+
+        PlayerProfile profile = Bukkit.createProfile(uuid);
+        meta.setPlayerProfile(profile);
+
+        head.setItemMeta(meta);
+        return head;
+    }
 }
