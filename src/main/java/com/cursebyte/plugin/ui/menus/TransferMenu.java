@@ -10,7 +10,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.cursebyte.plugin.player.TransferManager;
+import com.cursebyte.plugin.modules.economy.transfer.TransferFlow;
 import com.cursebyte.plugin.ui.core.Menu;
 import com.cursebyte.plugin.ui.core.MenuContext;
 import com.cursebyte.plugin.ui.core.MenuSession;
@@ -66,13 +66,7 @@ public class TransferMenu implements Menu {
             }
 
             p.closeInventory();
-            TransferManager.startTransferSession(p, target);
-
-            p.sendMessage("§e========================================");
-            p.sendMessage("§eSedang mentransfer ke: §f" + target.getName());
-            p.sendMessage("§aSilakan ketik jumlah uang di chat.");
-            p.sendMessage("§7(Ketik 'batal' untuk membatalkan)");
-            p.sendMessage("§e========================================");
+            TransferFlow.start(p, target);
         }
     }
 
