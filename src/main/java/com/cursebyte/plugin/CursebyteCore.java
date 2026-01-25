@@ -8,10 +8,10 @@ import com.cursebyte.plugin.database.DatabaseManager;
 import com.cursebyte.plugin.economy.EconomyManager;
 import com.cursebyte.plugin.immigration.CitizenshipNPCManager;
 import com.cursebyte.plugin.listener.AppMenuListener;
-import com.cursebyte.plugin.listener.ChatInputListener;
 import com.cursebyte.plugin.listener.CitizenListener;
 import com.cursebyte.plugin.listener.EconomyListener;
 import com.cursebyte.plugin.listener.TransactionListener;
+import com.cursebyte.plugin.listener.TransferListener;
 import com.cursebyte.plugin.modules.citizen.CitizenService;
 import com.cursebyte.plugin.ui.core.MenuRegistry;
 import com.cursebyte.plugin.ui.menus.MainMenu;
@@ -61,7 +61,7 @@ public class CursebyteCore extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EconomyListener(), this);
         getServer().getPluginManager().registerEvents(new AppMenuListener(), this);
         getServer().getPluginManager().registerEvents(new TransactionListener(), this);
-        getServer().getPluginManager().registerEvents(new ChatInputListener(), this);
+        getServer().getPluginManager().registerEvents(new TransferListener(), this);
         getServer().getPluginManager().registerEvents(new CitizenListener(), this);
     }
 
