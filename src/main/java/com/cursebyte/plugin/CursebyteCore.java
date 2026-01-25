@@ -10,13 +10,19 @@ import com.cursebyte.plugin.immigration.CitizenshipNPCManager;
 import com.cursebyte.plugin.listener.AppMenuListener;
 import com.cursebyte.plugin.listener.CitizenListener;
 import com.cursebyte.plugin.listener.EconomyListener;
+import com.cursebyte.plugin.listener.ReportListener;
 import com.cursebyte.plugin.listener.TransactionListener;
 import com.cursebyte.plugin.listener.TransferListener;
 import com.cursebyte.plugin.modules.citizen.CitizenService;
+import com.cursebyte.plugin.modules.report.ReportRepository;
+import com.cursebyte.plugin.modules.reputation.ReputationRepository;
 import com.cursebyte.plugin.ui.core.MenuRegistry;
 import com.cursebyte.plugin.ui.menus.MainMenu;
+import com.cursebyte.plugin.ui.menus.ReportMenu;
 import com.cursebyte.plugin.ui.menus.TransferMenu;
 import com.cursebyte.plugin.ui.menus.WalletMenu;
+import com.cursebyte.plugin.ui.menus.report.ReportCrimeMenu;
+import com.cursebyte.plugin.ui.menus.report.ReportPlayerMenu;
 import com.cursebyte.plugin.ui.menus.wallet.MutationMenu;
 
 public class CursebyteCore extends JavaPlugin {
@@ -35,6 +41,8 @@ public class CursebyteCore extends JavaPlugin {
         DatabaseManager.init(getDataFolder().getAbsolutePath());
         EconomyManager.init();
         CitizenService.init();
+        ReputationRepository.init();
+        ReportRepository.init();
 
         registerMenus();
         registerListeners();
@@ -49,6 +57,9 @@ public class CursebyteCore extends JavaPlugin {
         MenuRegistry.register(new WalletMenu());
         MenuRegistry.register(new MutationMenu());
         MenuRegistry.register(new TransferMenu());
+        MenuRegistry.register(new ReportMenu());
+        MenuRegistry.register(new ReportPlayerMenu());
+        MenuRegistry.register(new ReportCrimeMenu());
     }
 
     private void registerTask() {
@@ -63,6 +74,7 @@ public class CursebyteCore extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new TransactionListener(), this);
         getServer().getPluginManager().registerEvents(new TransferListener(), this);
         getServer().getPluginManager().registerEvents(new CitizenListener(), this);
+        getServer().getPluginManager().registerEvents(new ReportListener(), this);
     }
 
     private void registerCommands() {
