@@ -5,3 +5,8 @@ immigration:
     id: -1
     name: "Petugas Imigrasi"
     location: null
+
+economy:
+  tax:
+    enabled: true
+    transfer-tax: 0.1   # persen (%)

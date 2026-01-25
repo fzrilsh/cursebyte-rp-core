@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
+import com.cursebyte.plugin.modules.economy.TaxService;
 import com.cursebyte.plugin.modules.economy.transfer.TransferService.TransferResult;
 
 import net.kyori.adventure.text.Component;
@@ -41,7 +42,6 @@ public class TransferFlow {
         }
 
         TransferResult result = TransferService.transfer(senderId, targetId, amount);
-
         Player target = Bukkit.getPlayer(targetId);
 
         switch (result) {
@@ -49,7 +49,7 @@ public class TransferFlow {
             case INSUFFICIENT_BALANCE -> sender.sendMessage("§cSaldo tidak cukup!");
             case FAILED -> sender.sendMessage("§cTransaksi gagal!");
             case SUCCESS -> {
-                sender.sendMessage("§fBerhasil kirim §e⛁ " + amount + " §fke §e" + target.getName());
+                sender.sendMessage("§fBerhasil kirim §e⛁ " + amount + " §fke §e" + target.getName() + " §fdengan pajak §e⛁ " + TaxService.calculateTax(amount));
                 sender.playSound(sender.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
 
                 if (target != null) {

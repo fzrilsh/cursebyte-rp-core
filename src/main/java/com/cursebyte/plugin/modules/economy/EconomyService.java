@@ -4,35 +4,50 @@ import java.util.UUID;
 
 public class EconomyService {
 
-    public static void initPlayer(UUID uuid){
+    public static void initPlayer(UUID uuid) {
         EconomyRepository.createPlayer(uuid);
     }
 
-    public static double getBalance(UUID uuid){
+    public static double getBalance(UUID uuid) {
         return EconomyRepository.getBalance(uuid);
     }
 
-    public static boolean hasEnough(UUID uuid, double amount){
+    public static boolean hasEnough(UUID uuid, double amount) {
         return getBalance(uuid) >= amount;
     }
 
-    public static void add(UUID uuid, double amount){
+    public static void add(UUID uuid, double amount) {
         EconomyRepository.add(uuid, amount);
     }
 
-    public static boolean remove(UUID uuid, double amount){
-        if(!hasEnough(uuid, amount)) return false;
+    public static boolean remove(UUID uuid, double amount) {
+        if (!hasEnough(uuid, amount))
+            return false;
         EconomyRepository.remove(uuid, amount);
         return true;
     }
 
-    public static boolean transfer(UUID from, UUID to, double amount){
-        if(!hasEnough(from, amount)) return false;
+    public static boolean transfer(UUID from, UUID to, double amount) {
+        double tax = TaxService.calculateTax(amount);
+        double total = amount + tax;
 
-        EconomyRepository.remove(from, amount);
-        EconomyRepository.add(to, amount);
+        if (!hasEnough(from, total)) {
+            return false;
+        }
 
-        TransactionService.log(from, to, amount, "TRANSFER");
+        remove(from, total);
+        add(to, amount);
+
+        if (tax > 0) {
+            // TODO: masukin ke kas negara
+        }
+
+        TransactionService.log(
+                from,
+                to,
+                total,
+                "TRANSFER + TAX: ");
+
         return true;
     }
 }
