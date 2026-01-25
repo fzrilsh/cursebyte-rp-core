@@ -31,6 +31,7 @@ public class EconomyRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        
         return 0.0;
     }
 

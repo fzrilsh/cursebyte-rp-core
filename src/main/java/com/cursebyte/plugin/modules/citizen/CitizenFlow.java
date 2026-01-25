@@ -5,11 +5,16 @@ import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 
+import com.cursebyte.plugin.modules.reputation.ReputationEvent;
+import com.cursebyte.plugin.modules.reputation.ReputationEventBus;
+import com.cursebyte.plugin.modules.reputation.ReputationEventType;
+
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.title.Title;
 
 import java.time.Duration;
+import java.util.Map;
 
 public class CitizenFlow {
 
@@ -32,6 +37,12 @@ public class CitizenFlow {
                         Duration.ofMillis(3000),
                         Duration.ofMillis(500)
                 )
+        ));
+
+        ReputationEventBus.emit(new ReputationEvent(
+            player.getUniqueId(),
+            ReputationEventType.PUBLIC_SERVICE,
+            Map.of()
         ));
 
         CitizenSessionManager.end(player);

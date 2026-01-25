@@ -1,5 +1,6 @@
 package com.cursebyte.plugin.modules.economy.transfer;
 
+import java.util.Map;
 import java.util.UUID;
 
 import org.bukkit.Bukkit;
@@ -8,6 +9,9 @@ import org.bukkit.entity.Player;
 
 import com.cursebyte.plugin.modules.economy.TaxService;
 import com.cursebyte.plugin.modules.economy.transfer.TransferService.TransferResult;
+import com.cursebyte.plugin.modules.reputation.ReputationEvent;
+import com.cursebyte.plugin.modules.reputation.ReputationEventBus;
+import com.cursebyte.plugin.modules.reputation.ReputationEventType;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -51,6 +55,12 @@ public class TransferFlow {
             case SUCCESS -> {
                 sender.sendMessage("§fBerhasil kirim §e⛁ " + amount + " §fke §e" + target.getName() + " §fdengan pajak §e⛁ " + TaxService.calculateTax(amount));
                 sender.playSound(sender.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1f, 1f);
+
+                ReputationEventBus.emit(new ReputationEvent(
+                    sender.getUniqueId(),
+                    ReputationEventType.TRANSFER,
+                    Map.of()
+                ));
 
                 if (target != null) {
                     target.sendActionBar(Component.text(
