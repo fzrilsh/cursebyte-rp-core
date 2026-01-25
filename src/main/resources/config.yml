@@ -10,3 +10,41 @@ economy:
   tax:
     enabled: true
     transfer-tax: 0.1   # persen (%)
+
+reputation:
+  default: 0.5
+  min: 0.0
+  max: 1.0
+
+  events:
+    TRANSFER:
+      enabled: true
+      delta: 0.001
+
+    JOB_COMPLETE:
+      enabled: true
+      delta: 0.005
+
+    TAX_PAYMENT:
+      enabled: true
+      delta: 0.002
+
+    PUBLIC_SERVICE:
+      enabled: true
+      delta: 0.004
+
+    CRIME:
+      enabled: true
+      delta: -0.02
+
+    SCAM:
+      enabled: true
+      delta: -0.05
+
+    REPORT:
+      enabled: true
+      delta: 0.001
+
+    SYSTEM_ABUSE:
+      enabled: true
+      delta: -0.1
