@@ -1,13 +1,10 @@
 package com.cursebyte.plugin.listener;
 
-import java.util.stream.Collectors;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerEditBookEvent;
 
 import com.cursebyte.plugin.CursebyteCore;
 import com.cursebyte.plugin.modules.report.ReportService;

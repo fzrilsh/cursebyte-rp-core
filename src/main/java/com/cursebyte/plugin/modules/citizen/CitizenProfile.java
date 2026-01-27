@@ -18,14 +18,39 @@ public class CitizenProfile {
         this.registered = registered;
     }
 
-    public UUID getUuid() { return uuid; }
-    public String getNik() { return nik; }
-    public String getFullName() { return fullName; }
-    public long getJoinDate() { return joinDate; }
-    public boolean isRegistered() { return registered; }
+    public UUID getUuid() {
+        return uuid;
+    }
 
-    public void setNik(String nik) { this.nik = nik; }
-    public void setFullName(String fullName) { this.fullName = fullName; }
-    public void setJoinDate(long joinDate) { this.joinDate = joinDate; }
-    public void setRegistered(boolean registered) { this.registered = registered; }
+    public String getNik() {
+        return nik;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public long getJoinDate() {
+        return joinDate;
+    }
+
+    public boolean isRegistered() {
+        return registered;
+    }
+
+    public void setNik(String nik) {
+        this.nik = nik;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setJoinDate(long joinDate) {
+        this.joinDate = joinDate;
+    }
+
+    public void setRegistered(boolean registered) {
+        this.registered = registered;
+    }
 }
