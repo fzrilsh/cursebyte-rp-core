@@ -2,6 +2,7 @@ package com.cursebyte.plugin.ui.menus.wallet;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -10,8 +11,8 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.cursebyte.plugin.economy.Transaction;
-import com.cursebyte.plugin.economy.TransactionManager;
+import com.cursebyte.plugin.modules.economy.transaction.TransactionRecord;
+import com.cursebyte.plugin.modules.economy.transaction.TransactionService;
 import com.cursebyte.plugin.ui.core.Menu;
 import com.cursebyte.plugin.ui.core.MenuContext;
 import com.cursebyte.plugin.ui.core.MenuRouter;
@@ -36,10 +37,10 @@ public class MutationMenu implements Menu {
         int limit = 28;
         int offset = page * limit;
 
-        List<Transaction> txs = TransactionManager.getTransactions(p.getUniqueId(), limit, offset);
+        List<TransactionRecord> txs = TransactionService.getHistory(p.getUniqueId(), limit, offset);
 
         int slot = 10;
-        for (Transaction tx : txs) {
+        for (TransactionRecord tx : txs) {
             inv.setItem(slot++, txItem(p, tx));
             if (slot == 17)
                 slot = 19;
@@ -77,8 +78,8 @@ public class MutationMenu implements Menu {
         }
     }
 
-    private static ItemStack txItem(Player viewer, Transaction tx) {
-        boolean isSender = tx.getSender().equals(viewer.getUniqueId().toString());
+    private static ItemStack txItem(Player viewer, TransactionRecord tx) {
+        boolean isSender = viewer.getUniqueId().equals(tx.getSender());
 
         Material mat = isSender ? Material.REDSTONE : Material.EMERALD;
 

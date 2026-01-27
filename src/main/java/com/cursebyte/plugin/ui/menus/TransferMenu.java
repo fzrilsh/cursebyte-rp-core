@@ -30,6 +30,12 @@ public class TransferMenu implements Menu {
     @Override
     public Inventory build(Player p, MenuContext ctx) {
         UUID targetId = ctx.get("target", UUID.class);
+        if (targetId == null) {
+            p.closeInventory();
+            p.sendMessage(Component.text("Player sudah offline."));
+            return null;
+        }
+
         Player target = Bukkit.getPlayer(targetId);
 
         Inventory inv = Bukkit.createInventory(null, 45, Component.text("INTERAKSI DENGAN " + target.getName()));
