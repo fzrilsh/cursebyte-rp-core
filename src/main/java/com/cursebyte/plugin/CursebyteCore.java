@@ -5,7 +5,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.cursebyte.plugin.command.AppCommand;
 import com.cursebyte.plugin.command.ImmigrationCommand;
 import com.cursebyte.plugin.database.DatabaseManager;
-import com.cursebyte.plugin.economy.EconomyManager;
 import com.cursebyte.plugin.immigration.CitizenshipNPCManager;
 import com.cursebyte.plugin.listener.AppMenuListener;
 import com.cursebyte.plugin.listener.CitizenListener;
@@ -14,8 +13,11 @@ import com.cursebyte.plugin.listener.ReportListener;
 import com.cursebyte.plugin.listener.TransactionListener;
 import com.cursebyte.plugin.listener.TransferListener;
 import com.cursebyte.plugin.modules.citizen.CitizenService;
+import com.cursebyte.plugin.modules.economy.EconomyRepository;
 import com.cursebyte.plugin.modules.report.ReportRepository;
 import com.cursebyte.plugin.modules.reputation.ReputationRepository;
+import com.cursebyte.plugin.modules.state.core.StateConfigManager;
+import com.cursebyte.plugin.modules.state.core.StateLoader;
 import com.cursebyte.plugin.ui.core.MenuRegistry;
 import com.cursebyte.plugin.ui.menus.MainMenu;
 import com.cursebyte.plugin.ui.menus.ReportMenu;
@@ -39,7 +41,8 @@ public class CursebyteCore extends JavaPlugin {
         }
 
         DatabaseManager.init(getDataFolder().getAbsolutePath());
-        EconomyManager.init();
+        StateConfigManager.init(getDataFolder());
+        EconomyRepository.init();
         CitizenService.init();
         ReputationRepository.init();
         ReportRepository.init();
@@ -50,6 +53,11 @@ public class CursebyteCore extends JavaPlugin {
         registerTask();
 
         getLogger().info("Cursebyte Core launched!");
+    }
+
+    @Override
+    public void onDisable() {
+        DatabaseManager.close();
     }
 
     private void registerMenus() {
@@ -65,6 +73,7 @@ public class CursebyteCore extends JavaPlugin {
     private void registerTask() {
         getServer().getScheduler().runTaskLater(this, () -> {
             new CitizenshipNPCManager().spawnNPC();
+            StateLoader.load();
         }, 100L);
     }
 
