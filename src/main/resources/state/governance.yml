@@ -1,0 +1,12 @@
+state:
+  name: "Negara Digital"
+  system: "presidential"
+
+leadership:
+  president: true
+  vice_president: true
+
+reputation_rules:
+  citizen_vote_min: 0.5
+  business_open_min: 0.3
+  office_min: 0.8

@@ -1,0 +1,20 @@
+institutions:
+  PRESIDENCY:
+    name: "Presidensi Negara"
+    type: "EXECUTIVE"
+    coordinator_required: false
+
+  BPUN:
+    name: "Badan Pengawasan Usaha Negara"
+    type: "SUPERVISORY"
+    coordinator_required: true
+
+  BEN:
+    name: "Badan Ekonomi Negara"
+    type: "ECONOMIC"
+    coordinator_required: true
+
+  BPN:
+    name: "Badan Pemilihan Negara"
+    type: "ELECTION"
+    coordinator_required: true

@@ -1,0 +1,36 @@
+roles:
+  PRESIDENT:
+    level: 100
+    institution: PRESIDENCY
+
+  VICE_PRESIDENT:
+    level: 90
+    institution: PRESIDENCY
+
+  BPUN_COORDINATOR:
+    level: 80
+    institution: BPUN
+
+  BPUN_MEMBER:
+    level: 50
+    institution: BPUN
+
+  BEN_COORDINATOR:
+    level: 80
+    institution: BEN
+
+  BEN_MEMBER:
+    level: 50
+    institution: BEN
+
+  BPN_COORDINATOR:
+    level: 80
+    institution: BPN
+
+  BPN_MEMBER:
+    level: 50
+    institution: BPN
+
+  CITIZEN:
+    level: 10
+    institution: NONE

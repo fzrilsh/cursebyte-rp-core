@@ -1,0 +1,60 @@
+state:
+  structure:
+    president:
+      enabled: true
+      roles:
+        - broadcast
+        - law_override
+        - approve_decision
+        - create_meeting
+      approval_required_for:
+        - BEN
+        - BPUN
+
+    vice_president:
+      enabled: true
+      roles:
+        - broadcast
+        - receive_reports
+        - fine_decision
+      restrictions:
+        - no_final_decision
+        - no_meeting_creation
+
+    institutions:
+      BPUN:
+        name: "Badan Pengawasan Usaha Negara"
+        coordinator: null
+        members: []
+        permissions:
+          - fine
+          - revoke_business_license
+          - view_transaction_summary
+          - view_tax_summary
+
+      BEN:
+        name: "Badan Ekonomi Negara"
+        coordinator: null
+        members: []
+        permissions:
+          - set_tax
+          - set_price_regulation
+          - set_job_salary
+          - manage_state_treasury
+          - fund_distribution
+          - economic_law
+        require_president_approval: true
+
+      BPN:
+        name: "Badan Pemilihan Negara"
+        coordinator: null
+        members: []
+        permissions:
+          - create_election
+          - impeach_president
+          - promote_vice_president
+
+  citizen_rules:
+    voting_reputation_min: 0.5
+    business_reputation_min: 0.3
+    office_reputation_min: 0.8
