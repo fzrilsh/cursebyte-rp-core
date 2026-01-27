@@ -1,13 +1,14 @@
-package com.cursebyte.plugin.economy;
+package com.cursebyte.plugin.modules.economy.transaction;
 
-public class Transaction {
+public class TransactionRecord {
+
     private final String sender;
     private final String receiver;
     private final double amount;
     private final long time;
     private final String description;
 
-    public Transaction(String sender, String receiver, double amount, long time, String description) {
+    public TransactionRecord(String sender, String receiver, double amount, long time, String description) {
         this.sender = sender;
         this.receiver = receiver;
         this.amount = amount;

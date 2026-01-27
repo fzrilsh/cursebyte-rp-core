@@ -2,6 +2,9 @@ package com.cursebyte.plugin.modules.economy;
 
 import java.util.UUID;
 
+import com.cursebyte.plugin.modules.economy.transaction.TransactionService;
+import com.cursebyte.plugin.modules.state.treasury.TreasuryRepository;
+
 public class EconomyService {
 
     public static void initPlayer(UUID uuid) {
@@ -39,14 +42,20 @@ public class EconomyService {
         add(to, amount);
 
         if (tax > 0) {
-            // TODO: masukin ke kas negara
+            TreasuryRepository.addTreasury(tax);
         }
 
         TransactionService.log(
                 from,
                 to,
-                total,
-                "TRANSFER + TAX: ");
+                amount,
+                "TRANSFER: ");
+
+        TransactionService.log(
+                from,
+                to,
+                tax,
+                "TRANSFER TAX: ");
 
         return true;
     }

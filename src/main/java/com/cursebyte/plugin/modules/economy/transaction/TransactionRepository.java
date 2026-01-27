@@ -1,17 +1,21 @@
-package com.cursebyte.plugin.modules.economy;
+package com.cursebyte.plugin.modules.economy.transaction;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 import com.cursebyte.plugin.database.DatabaseManager;
 
-import java.sql.*;
-import java.util.*;
+public class TransactionRepository {
 
-public class TransactionService {
-
-    public static void log(UUID sender, UUID receiver, double amount, String desc){
+    public static void addLog(UUID sender, UUID receiver, double amount, String desc) {
         String sql = """
-            INSERT INTO transactions(sender, receiver, amount, time, description)
-            VALUES(?, ?, ?, ?, ?)
-        """;
+                    INSERT INTO transactions(sender, receiver, amount, time, description)
+                    VALUES(?, ?, ?, ?, ?)
+                """;
 
         try (PreparedStatement ps = DatabaseManager.getConnection().prepareStatement(sql)) {
             ps.setString(1, sender.toString());
@@ -25,7 +29,7 @@ public class TransactionService {
         }
     }
 
-    public static List<TransactionRecord> getHistory(UUID uuid, int page, int size){
+    public static List<TransactionRecord> getMutation(UUID uuid, int page, int size){
         List<TransactionRecord> list = new ArrayList<>();
         int offset = page * size;
 

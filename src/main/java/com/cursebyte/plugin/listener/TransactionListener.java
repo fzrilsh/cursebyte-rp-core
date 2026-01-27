@@ -21,6 +21,6 @@ public class TransactionListener implements Listener {
         MenuContext nctx = new MenuContext();
         nctx.set("target", targetPlayer.getUniqueId());
 
-        MenuRouter.open(sourcePlayer, "transfer");
+        MenuRouter.open(sourcePlayer, "transfer", nctx);
     }
 }

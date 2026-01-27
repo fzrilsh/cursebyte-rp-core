@@ -7,6 +7,44 @@ import java.util.UUID;
 
 public class EconomyRepository {
 
+    public static void init() {
+        createTable();
+        createTransactionTable();
+    }
+
+    private static void createTable() {
+        String sql = """
+                    CREATE TABLE IF NOT EXISTS economy (
+                        uuid TEXT PRIMARY KEY,
+                        balance REAL
+                    );
+                """;
+
+        try (Statement stmt = DatabaseManager.getConnection().createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void createTransactionTable() {
+        String sql = """
+                    CREATE TABLE IF NOT EXISTS transactions (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        sender TEXT,
+                        receiver TEXT,
+                        amount REAL,
+                        time INTEGER,
+                        description TEXT
+                    )
+                """;
+        try (Statement stmt = DatabaseManager.getConnection().createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void createPlayer(UUID uuid){
         String sql = "INSERT OR IGNORE INTO economy(uuid, balance) VALUES(?, ?)";
 
@@ -35,8 +73,8 @@ public class EconomyRepository {
         return 0.0;
     }
 
-    public static void setBalance(UUID uuid, double amount){
-        String sql = "UPDATE economy SET balance = ? WHERE uuid = ?";
+    public static void add(UUID uuid, double amount){
+        String sql = "UPDATE economy SET balance = balance + ? WHERE uuid = ?";
 
         try (PreparedStatement ps = DatabaseManager.getConnection().prepareStatement(sql)) {
             ps.setDouble(1, amount);
@@ -47,13 +85,15 @@ public class EconomyRepository {
         }
     }
 
-    public static void add(UUID uuid, double amount){
-        double current = getBalance(uuid);
-        setBalance(uuid, current + amount);
-    }
-
     public static void remove(UUID uuid, double amount){
-        double current = getBalance(uuid);
-        setBalance(uuid, Math.max(0, current - amount));
+        String sql = "UPDATE economy SET balance = balance - ? WHERE uuid = ?";
+
+        try (PreparedStatement ps = DatabaseManager.getConnection().prepareStatement(sql)) {
+            ps.setDouble(1, amount);
+            ps.setString(2, uuid.toString());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
