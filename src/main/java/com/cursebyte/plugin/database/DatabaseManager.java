@@ -3,6 +3,7 @@ package com.cursebyte.plugin.database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DatabaseManager {
 
@@ -13,6 +14,11 @@ public class DatabaseManager {
         try {
             dbPath = pluginFolderPath + "/data.db";
             connection = DriverManager.getConnection("jdbc:sqlite:" + dbPath);
+
+            try (Statement stmt = connection.createStatement()) {
+                stmt.execute("PRAGMA foreign_keys = ON;");
+                stmt.execute("PRAGMA journal_mode = WAL;");
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -20,5 +26,19 @@ public class DatabaseManager {
 
     public static Connection getConnection() {
         return connection;
+    }
+
+    public static void close() {
+        try {
+            if (connection != null && !connection.isClosed()) {
+                try (java.sql.Statement stmt = connection.createStatement()) {
+                    stmt.execute("PRAGMA optimize;");
+                }
+
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
