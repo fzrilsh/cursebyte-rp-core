@@ -14,6 +14,7 @@ import com.cursebyte.plugin.listener.TransactionListener;
 import com.cursebyte.plugin.listener.TransferListener;
 import com.cursebyte.plugin.modules.citizen.CitizenService;
 import com.cursebyte.plugin.modules.economy.EconomyRepository;
+import com.cursebyte.plugin.modules.government.stock.GovernmentStockService;
 import com.cursebyte.plugin.modules.report.ReportRepository;
 import com.cursebyte.plugin.modules.reputation.ReputationRepository;
 import com.cursebyte.plugin.modules.state.core.StateConfigManager;
@@ -23,6 +24,8 @@ import com.cursebyte.plugin.ui.menus.MainMenu;
 import com.cursebyte.plugin.ui.menus.ReportMenu;
 import com.cursebyte.plugin.ui.menus.TransferMenu;
 import com.cursebyte.plugin.ui.menus.WalletMenu;
+import com.cursebyte.plugin.ui.menus.government.GovShopCategoryMenu;
+import com.cursebyte.plugin.ui.menus.government.GovShopItemsMenu;
 import com.cursebyte.plugin.ui.menus.report.ReportCrimeMenu;
 import com.cursebyte.plugin.ui.menus.report.ReportPlayerMenu;
 import com.cursebyte.plugin.ui.menus.wallet.MutationMenu;
@@ -46,6 +49,8 @@ public class CursebyteCore extends JavaPlugin {
         CitizenService.init();
         ReputationRepository.init();
         ReportRepository.init();
+        GovernmentStockService.init();
+        GovernmentStockService.registerApi(this);
 
         registerMenus();
         registerListeners();
@@ -68,6 +73,8 @@ public class CursebyteCore extends JavaPlugin {
         MenuRegistry.register(new ReportMenu());
         MenuRegistry.register(new ReportPlayerMenu());
         MenuRegistry.register(new ReportCrimeMenu());
+        MenuRegistry.register(new GovShopCategoryMenu());
+        MenuRegistry.register(new GovShopItemsMenu());
     }
 
     private void registerTask() {
