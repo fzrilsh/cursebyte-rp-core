@@ -8,9 +8,6 @@ import java.util.Base64;
 
 public final class ItemStackSerializer {
 
-    private ItemStackSerializer() {
-    }
-
     public static String toBase64(ItemStack item) {
         if (item == null) {
             throw new IllegalArgumentException("ItemStack cannot be null");
