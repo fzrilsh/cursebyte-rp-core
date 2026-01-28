@@ -4,19 +4,16 @@ import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import com.cursebyte.plugin.CursebyteCore;
 import com.cursebyte.plugin.modules.economy.EconomyService;
 import com.cursebyte.plugin.modules.economy.transaction.TransactionService;
-import com.cursebyte.plugin.modules.government.api.GovernmentSupplyApi;
 import com.cursebyte.plugin.modules.government.pricing.RobustEmaModel;
 import com.cursebyte.plugin.modules.government.util.ItemStackSerializer;
 import com.cursebyte.plugin.modules.government.util.SkuHasher;
 
-public final class GovernmentStockService implements GovernmentSupplyApi {
+public final class GovernmentStockService {
 
     private static final RobustEmaModel EMA = new RobustEmaModel(0.08, 0.10, 3.0);
 
@@ -57,12 +54,6 @@ public final class GovernmentStockService implements GovernmentSupplyApi {
         GovernmentStockRepository.init();
     }
 
-    public static void registerApi(CursebyteCore plugin) {
-        Bukkit.getServicesManager().register(GovernmentSupplyApi.class, INSTANCE, plugin,
-                org.bukkit.plugin.ServicePriority.Normal);
-    }
-
-    @Override
     public void submitStock(UUID sellerUuid, String category, ItemStack item, int quantity, double unitCost) {
         if (item == null || quantity <= 0)
             return;
