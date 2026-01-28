@@ -50,7 +50,6 @@ public class CursebyteCore extends JavaPlugin {
         ReputationRepository.init();
         ReportRepository.init();
         GovernmentStockService.init();
-        GovernmentStockService.registerApi(this);
 
         registerMenus();
         registerListeners();
