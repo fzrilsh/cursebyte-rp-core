@@ -7,7 +7,7 @@
 
     <groupId>com.cursebyte</groupId>
     <artifactId>cursebyte-core</artifactId>
-    <version>1.2.1</version>
+    <version>1.2.6</version>
 
     <properties>
         <java.version>21</java.version>
