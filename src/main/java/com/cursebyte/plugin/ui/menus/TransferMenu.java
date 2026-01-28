@@ -76,24 +76,6 @@ public class TransferMenu implements Menu {
         }
     }
 
-    public static void open(Player source, Player target) {
-        Inventory inv = Bukkit.createInventory(null, 45, Component.text("INTERAKSI DENGAN " + target.getName()));
-
-        ItemStack gray = glass(Material.GRAY_STAINED_GLASS_PANE);
-        ItemStack black = glass(Material.BLACK_STAINED_GLASS_PANE);
-        for (int i = 0; i < 45; i++)
-            inv.setItem(i, gray);
-        for (int i = 0; i < 9; i++)
-            inv.setItem(i, black);
-        for (int i = 36; i < 45; i++)
-            inv.setItem(i, black);
-
-        inv.setItem(40, closeItem());
-        inv.setItem(22, transferItem(target));
-
-        source.openInventory(inv);
-    }
-
     private static ItemStack transferItem(Player target) {
         ItemStack item = SkullUtils.getCustomHead(
                 "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWJkYTVmMzE5MzdiMmZmNzU1MjcxZDk3ZjAxYmU4NGQ1MmE0MDdiMzZjYTc3NDUxODU2MTYyYWM2Y2ZiYjM0ZiJ9fX0=");
