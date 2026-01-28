@@ -69,10 +69,10 @@ public class GovShopCategoryMenu implements Menu {
         if (meta == null || meta.displayName() == null)
             return;
 
-        // category stored in persistent? We keep it in lore line 0 prefix "#CAT:"
         List<Component> lore = meta.lore();
         if (lore == null)
             return;
+
         String cat = null;
         for (Component line : lore) {
             String plain = plain(line);
@@ -81,6 +81,7 @@ public class GovShopCategoryMenu implements Menu {
                 break;
             }
         }
+
         if (cat == null)
             return;
 
@@ -149,7 +150,6 @@ public class GovShopCategoryMenu implements Menu {
         CATEGORY_ICON.put("pangan", Material.BREAD);
         CATEGORY_ICON.put("makanan", Material.COOKED_BEEF);
         CATEGORY_ICON.put("minuman", Material.POTION);
-        CATEGORY_ICON.put("bahan", Material.IRON_INGOT);
         CATEGORY_ICON.put("material", Material.OAK_PLANKS);
         CATEGORY_ICON.put("pertanian", Material.WHEAT);
         CATEGORY_ICON.put("tambang", Material.DIAMOND_PICKAXE);
