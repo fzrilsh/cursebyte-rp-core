@@ -21,11 +21,11 @@ public class TransferFlow {
     public static void start(Player sender, Player target) {
         TransferSession.start(sender.getUniqueId(), target.getUniqueId());
 
-        sender.sendMessage("§e========================================");
+        sender.sendMessage("");
         sender.sendMessage("§eSedang mentransfer ke: §f" + target.getName());
         sender.sendMessage("§aSilakan ketik jumlah uang di chat.");
         sender.sendMessage("§7(Ketik 'batal' untuk membatalkan)");
-        sender.sendMessage("§e========================================");
+        sender.sendMessage("");
     }
 
     public static void cancel(Player sender) {
