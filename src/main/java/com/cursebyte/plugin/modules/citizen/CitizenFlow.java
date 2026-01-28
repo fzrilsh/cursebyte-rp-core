@@ -2,9 +2,13 @@ package com.cursebyte.plugin.modules.citizen;
 
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
+import com.cursebyte.plugin.modules.economy.EconomyService;
 import com.cursebyte.plugin.modules.reputation.ReputationEvent;
 import com.cursebyte.plugin.modules.reputation.ReputationEventBus;
 import com.cursebyte.plugin.modules.reputation.ReputationEventType;
@@ -35,16 +39,28 @@ public class CitizenFlow {
                 Title.Times.times(
                         Duration.ofMillis(500),
                         Duration.ofMillis(3000),
-                        Duration.ofMillis(500)
-                )
-        ));
+                        Duration.ofMillis(500))));
+
+        player.sendActionBar(
+                Component.text("Kamu mendapatkan §e⛁ 100 untuk bertahan hidup!").color(TextColor.color(0, 217, 0)));
 
         ReputationEventBus.emit(new ReputationEvent(
-            player.getUniqueId(),
-            ReputationEventType.PUBLIC_SERVICE,
-            Map.of()
-        ));
+                player.getUniqueId(),
+                ReputationEventType.PUBLIC_SERVICE,
+                Map.of()));
 
+        giveStarter(player);
         CitizenSessionManager.end(player);
+    }
+
+    public static void giveStarter(Player player) {
+        PlayerInventory inv = player.getInventory();
+        inv.addItem(new ItemStack(Material.STONE_AXE, 1));
+        inv.addItem(new ItemStack(Material.STONE_PICKAXE, 1));
+        inv.addItem(new ItemStack(Material.STONE_HOE, 1));
+        inv.addItem(new ItemStack(Material.LEAD, 1));
+        inv.addItem(new ItemStack(Material.BREAD, 32));
+
+        EconomyService.add(player.getUniqueId(), 100);
     }
 }
