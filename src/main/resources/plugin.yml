@@ -11,3 +11,13 @@ commands:
     description: Atur lokasi spawn dan NPC imigrasi
     usage: /setupimmigration <spawn|npc>
     permission: immigration.admin
+
+  setmoney:
+    description: Menambahkan uang player
+    usage: /setmoney <nama|uang> <uang>
+    permission: economy.admin
+
+  setreputation:
+    description: Menambahkan reputasi player
+    usage: /setmoney <nama|reputasi> <reputasi>
+    permission: government.admin
