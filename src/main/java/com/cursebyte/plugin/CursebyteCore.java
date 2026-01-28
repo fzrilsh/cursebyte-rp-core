@@ -4,6 +4,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.cursebyte.plugin.command.AppCommand;
 import com.cursebyte.plugin.command.ImmigrationCommand;
+import com.cursebyte.plugin.command.SetMoneyCommand;
+import com.cursebyte.plugin.command.SetReputationCommand;
 import com.cursebyte.plugin.database.DatabaseManager;
 import com.cursebyte.plugin.immigration.CitizenshipNPCManager;
 import com.cursebyte.plugin.listener.AppMenuListener;
@@ -95,6 +97,8 @@ public class CursebyteCore extends JavaPlugin {
     private void registerCommands() {
         getCommand("app").setExecutor(new AppCommand());
         getCommand("setupimmigration").setExecutor(new ImmigrationCommand());
+        getCommand("setmoney").setExecutor(new SetMoneyCommand());
+        getCommand("setreputation").setExecutor(new SetReputationCommand());
     }
 
     public static CursebyteCore getInstance() {
