@@ -23,9 +23,31 @@ public final class GovernmentStockService implements GovernmentSupplyApi {
     private static final double DEFAULT_SUBSIDY_RATE = 0.15; // 15% subsidi
     private static final double DEFAULT_OVERHEAD = 0.05; // 5% biaya operasional
 
-    private GovernmentStockService() {}
+    private GovernmentStockService() {
+    }
 
     private static final GovernmentStockService INSTANCE = new GovernmentStockService();
+
+    public enum GovernmentStockCategory {
+        PANGAN("pangan"),
+        MAKANAN("makanan"),
+        MINUMAN("minuman"),
+        MATERIAL("material"),
+        PERTANIAN("pertanian"),
+        TAMBANG("tambang"),
+        PERALATAN("peralatan"),
+        LAINNYA("lainnya");
+
+        private final String id;
+
+        GovernmentStockCategory(String id) {
+            this.id = id;
+        }
+
+        public String id() {
+            return id;
+        }
+    }
 
     public static GovernmentStockService get() {
         return INSTANCE;
@@ -36,13 +58,16 @@ public final class GovernmentStockService implements GovernmentSupplyApi {
     }
 
     public static void registerApi(CursebyteCore plugin) {
-        Bukkit.getServicesManager().register(GovernmentSupplyApi.class, INSTANCE, plugin, org.bukkit.plugin.ServicePriority.Normal);
+        Bukkit.getServicesManager().register(GovernmentSupplyApi.class, INSTANCE, plugin,
+                org.bukkit.plugin.ServicePriority.Normal);
     }
 
     @Override
     public void submitStock(UUID sellerUuid, String category, ItemStack item, int quantity, double unitCost) {
-        if (item == null || quantity <= 0) return;
-        if (unitCost < 0) unitCost = 0;
+        if (item == null || quantity <= 0)
+            return;
+        if (unitCost < 0)
+            unitCost = 0;
 
         String cat = normalizeCategory(category);
         String sku = SkuHasher.skuHash(item);
@@ -61,8 +86,7 @@ public final class GovernmentStockService implements GovernmentSupplyApi {
                     unitCost,
                     1e-9,
                     1,
-                    now
-            ));
+                    now));
             return;
         }
 
@@ -83,8 +107,7 @@ public final class GovernmentStockService implements GovernmentSupplyApi {
                 updated.ema,
                 updated.dev,
                 newCount,
-                now
-        ));
+                now));
     }
 
     public List<GovernmentStockRepository.CategorySummary> listCategories() {
@@ -104,8 +127,10 @@ public final class GovernmentStockService implements GovernmentSupplyApi {
     }
 
     public PurchaseResult purchase(Player buyer, String skuHash, int qty, double unitPrice) {
-        if (buyer == null) return PurchaseResult.FAIL;
-        if (qty <= 0) return PurchaseResult.FAIL;
+        if (buyer == null)
+            return PurchaseResult.FAIL;
+        if (qty <= 0)
+            return PurchaseResult.FAIL;
 
         UUID buyerId = buyer.getUniqueId();
         double total = unitPrice * qty;
@@ -141,7 +166,8 @@ public final class GovernmentStockService implements GovernmentSupplyApi {
     }
 
     private static void giveItemStacks(Player p, ItemStack sample, int qty) {
-        if (sample == null) return;
+        if (sample == null)
+            return;
         int max = sample.getMaxStackSize();
         int remaining = qty;
         while (remaining > 0) {
@@ -154,9 +180,11 @@ public final class GovernmentStockService implements GovernmentSupplyApi {
     }
 
     private static String normalizeCategory(String category) {
-        if (category == null) return "lainnya";
+        if (category == null)
+            return "lainnya";
         String c = category.trim();
-        if (c.isEmpty()) return "lainnya";
+        if (c.isEmpty())
+            return "lainnya";
         return c.toLowerCase(Locale.ROOT);
     }
 
