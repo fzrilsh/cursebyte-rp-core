@@ -44,6 +44,7 @@ public class MainMenu implements Menu {
 
         inv.setItem(20, walletItem());
         inv.setItem(22, reportItem());
+        inv.setItem(24, govShopItem());
         inv.setItem(40, closeItem());
 
         return inv;
@@ -57,6 +58,10 @@ public class MainMenu implements Menu {
 
         if (slot == 22) {
             MenuRouter.open(p, "report");
+        }
+
+        if (slot == 24) {
+            MenuRouter.open(p, "gov.shop");
         }
 
         if (slot == 40) {
@@ -129,6 +134,41 @@ public class MainMenu implements Menu {
                 Component.text("• Mutasi rekening").color(TextColor.color(120, 255, 120)),
 
                 Component.text(""),
+                Component.text("Klik untuk membuka")
+                        .color(TextColor.color(255, 255, 255))
+                        .decorate(TextDecoration.BOLD)));
+
+        meta.addEnchant(Enchantment.LUCK_OF_THE_SEA, 1, true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+
+        item.setItemMeta(meta);
+        return item;
+    }
+
+    private static ItemStack govShopItem() {
+        ItemStack item = SkullUtils.getCustomHead(
+                "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTM1Y2QxMzRkN2U0M2QzZWQ0YmJjY2E2NjYzODljY2M0NmY2ZjI5ZDU5NzQ0OGU0M2JmODdiMDU2M2Q4NSJ9fX0=");
+        ItemMeta meta = item.getItemMeta();
+
+        meta.displayName(
+                Component.text("🏛️ Toko Pemerintah")
+                        .color(TextColor.color(120, 200, 255))
+                        .decorate(TextDecoration.BOLD));
+
+        meta.lore(List.of(
+                Component.text("Beli barang subsidi dari pemerintah")
+                        .color(TextColor.color(180, 180, 180))
+                        .decorate(TextDecoration.ITALIC),
+
+                Component.text(""),
+
+                Component.text("• Kategori: Pangan, Material, Peralatan, dll")
+                        .color(TextColor.color(120, 255, 120)),
+                Component.text("• Harga dinamis mengikuti rata-rata penjualan warga")
+                        .color(TextColor.color(120, 255, 120)),
+
+                Component.text(""),
+
                 Component.text("Klik untuk membuka")
                         .color(TextColor.color(255, 255, 255))
                         .decorate(TextDecoration.BOLD)));
