@@ -1,7 +1,6 @@
 package com.cursebyte.plugin.ui.menus;
 
 import java.util.List;
-import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -35,9 +34,9 @@ public class MainMenu implements Menu {
 
         ItemStack grayGlass = glass(Material.GRAY_STAINED_GLASS_PANE);
         ItemStack blackGlass = glass(Material.BLACK_STAINED_GLASS_PANE);
-        // for (int i = 0; i < 45; i++) {
-        //     inv.setItem(i, grayGlass);
-        // }
+        for (int i = 0; i < 45; i++) {
+            inv.setItem(i, grayGlass);
+        }
         for (int i = 0; i < 9; i++)
             inv.setItem(i, blackGlass);
         for (int i = 36; i < 45; i++)
@@ -47,7 +46,6 @@ public class MainMenu implements Menu {
         inv.setItem(22, reportItem());
         inv.setItem(24, govShopItem());
         inv.setItem(40, closeItem());
-        ctx.set("inputSlots", Set.of(21, 23));
 
         return inv;
     }
