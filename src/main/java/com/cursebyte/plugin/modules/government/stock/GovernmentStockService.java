@@ -54,7 +54,7 @@ public final class GovernmentStockService {
         GovernmentStockRepository.init();
     }
 
-    public void submitStock(UUID sellerUuid, String category, ItemStack item, int quantity, double unitCost) {
+    public static void submitStock(UUID sellerUuid, String category, ItemStack item, int quantity, double unitCost) {
         if (item == null || quantity <= 0)
             return;
         if (unitCost < 0)
