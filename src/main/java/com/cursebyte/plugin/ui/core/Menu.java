@@ -5,6 +5,14 @@ import org.bukkit.inventory.Inventory;
 
 public interface Menu {
     String id();
+
     Inventory build(Player player, MenuContext ctx);
-    void onClick(Player player, int slot, MenuContext ctx);
+
+    default void onClick(Player player, int slot, MenuContext ctx) {
+        // override
+    }
+
+    default void onChange(Player player, int slot, MenuContext ctx) {
+        // override
+    }
 }

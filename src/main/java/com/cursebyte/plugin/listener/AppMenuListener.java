@@ -73,6 +73,14 @@ public class AppMenuListener implements Listener {
         if (session == null)
             return;
 
+        String menuId = MenuSession.getMenu(p);
+        if (menuId == null)
+            return;
+
+        Menu menu = MenuRegistry.get(menuId);
+        if (menu == null)
+            return;
+
         @SuppressWarnings("unchecked")
         Set<Integer> inputSlots = getInputSlots(MenuSession.getContext(p));
         int topSize = e.getView().getTopInventory().getSize();
@@ -85,6 +93,8 @@ public class AppMenuListener implements Listener {
                     e.setCancelled(true);
                     return;
                 }
+
+                menu.onChange(p, rawSlot, session);
             }
         }
 
