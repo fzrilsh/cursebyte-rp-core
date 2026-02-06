@@ -1,6 +1,7 @@
 package com.cursebyte.plugin.listener;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import org.bukkit.entity.Player;
@@ -9,7 +10,10 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import com.cursebyte.plugin.ui.core.Menu;
 import com.cursebyte.plugin.ui.core.MenuContext;
@@ -70,6 +74,33 @@ public class AppMenuListener implements Listener {
     }
 
     @EventHandler
+    public void onClose(InventoryCloseEvent e) {
+        if (!(e.getPlayer() instanceof Player p))
+            return;
+
+        MenuContext session = MenuSession.getContext(p);
+        if (session == null)
+            return;
+
+        Inventory top = e.getView().getTopInventory();
+        Set<Integer> inputSlots = getInputSlots(MenuSession.getContext(p));
+
+        if (inputSlots != null) {
+            for (int slot : inputSlots) {
+                ItemStack item = top.getItem(slot);
+                if (item != null && !item.getType().isAir()) {
+                    Map<Integer, ItemStack> leftover = p.getInventory().addItem(item);
+                    
+                    leftover.values().forEach(i -> p.getWorld().dropItemNaturally(p.getLocation(), i));
+                    top.setItem(slot, null);
+                }
+            }
+        }
+
+        MenuSession.clear(p);
+    }
+
+    @EventHandler
     public void onMenuDrag(InventoryDragEvent e) {
         if (!(e.getWhoClicked() instanceof Player p))
             return;
@@ -86,7 +117,6 @@ public class AppMenuListener implements Listener {
         if (menu == null)
             return;
 
-        @SuppressWarnings("unchecked")
         Set<Integer> inputSlots = getInputSlots(MenuSession.getContext(p));
         int topSize = e.getView().getTopInventory().getSize();
 
@@ -104,7 +134,6 @@ public class AppMenuListener implements Listener {
         e.setCancelled(false);
     }
 
-    @SuppressWarnings("unchecked")
     private Set<Integer> getInputSlots(MenuContext ctx) {
         Object o = ctx.get("inputSlots", Object.class);
         if (o instanceof Set<?> set) {
