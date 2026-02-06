@@ -26,6 +26,10 @@ public class AppMenuListener implements Listener {
         if (e.getClickedInventory() != e.getView().getTopInventory())
             return;
 
+        MenuContext session = MenuSession.getContext(p);
+        if (session == null)
+            return;
+
         String menuId = MenuSession.getMenu(p);
         if (menuId == null)
             return;
@@ -35,7 +39,7 @@ public class AppMenuListener implements Listener {
             return;
 
         int rawSlot = e.getRawSlot();
-        Set<Integer> inputSlots = getInputSlots(MenuSession.getContext(p));
+        Set<Integer> inputSlots = getInputSlots(session);
         boolean isInput = inputSlots.contains(rawSlot);
 
         e.setCancelled(true);
@@ -51,6 +55,7 @@ public class AppMenuListener implements Listener {
                         PICKUP_ALL, PICKUP_HALF, PICKUP_ONE, PICKUP_SOME,
                         SWAP_WITH_CURSOR -> {
                     e.setCancelled(false);
+                    menu.onChange(p, rawSlot, session);
                     return;
                 }
 
@@ -93,8 +98,6 @@ public class AppMenuListener implements Listener {
                     e.setCancelled(true);
                     return;
                 }
-
-                menu.onChange(p, rawSlot, session);
             }
         }
 
